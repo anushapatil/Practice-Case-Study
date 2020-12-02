@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "npx webpack-dev-server --mode development --open --hot"
+    "start": "npx webpack-dev-server --mode development --watch --hot"
   },
   "author": "Anusha Patil",
   "license": "ISC",
