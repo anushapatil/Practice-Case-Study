@@ -1,18 +1,24 @@
 import React from 'react'
 
-const Dropdown = ({ list = [], callback }) => {
+const styles = { textAlign: 'center', marginBottom: '1.5rem' }
+const dropdronStyle = { width: '570px', height: '60px', color: '#8a8b8a', fontSize: '1.4375rem !important' }
+const optionsStyle = { fontWeight: 'normal', whiteSpace: 'pre', minHeight: '1.2em', padding: '0px 2px 1px' }
+
+const Dropdown = ({ list = [], callback, value, description }) => {
   const dropdownSelected = (event) => {
     const value = event.target.value
     callback(value)
   }
   return (
-    <select onChange={dropdownSelected}>
-      {list && list.map(({ Route, Description }) => 
-        <option key={Route} value={Route}>
-          {Description}
-        </option>
-      )}
-    </select>
+    <div style={styles}>
+      <select style={dropdronStyle} onChange={dropdownSelected}>
+        {list && list.map(item => 
+          <option style={optionsStyle} key={item[value]} value={item[value]}>
+            {item[description]}
+          </option>
+        )}
+      </select>
+    </div>
   )
 }
 

@@ -7,21 +7,14 @@ const GlobalStyle = createGlobalStyle`
     background: white;
     font-family: Open-Sans, Helvetica, Sans-Serif;
   }
-  .horiz-center {
-    width: fit-content;
-    margin: auto;
+  .center {
+    text-align: center !important;
   }
-  .center-align {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  .bottom {
+    margin-bottom: 3rem !important;
   }
-  .grid-container {
-    display: grid;
-    grid-template-columns: auto auto auto;
-  }
-  .grid-item {
-    grid-row: 1;
+  .content{
+    
   }
 `
 

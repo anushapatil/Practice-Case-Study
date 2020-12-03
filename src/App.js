@@ -2,6 +2,9 @@ import React, { Component } from 'react'
 
 import ContainerStyle from './styles'
 import GlobalStyle from './theme/globalStyle'
+import { Dropdown } from './components'
+
+const styles = { textAlign: 'center', marginBottom: '1.5rem' }
 
 class App extends Component {
   constructor(props) {
@@ -34,8 +37,7 @@ class App extends Component {
         })
   }
 
-  handleRoutesChange(event) {
-    const routeId = event.target.value
+  handleRoutesChange(routeId) {
     this.setState({ routeId })
     fetch(`https://svc.metrotransit.org/nextripv2/directions/${routeId}?format=JSON`)
       .then(response => response.json())
@@ -45,8 +47,7 @@ class App extends Component {
         })
   }
 
-  handleDirectionsChange(event) {
-    const directionId = event.target.value
+  handleDirectionsChange(directionId) {
     const { routeId } = this.state
     this.setState({ directionId })
     fetch(`https://svc.metrotransit.org/nextripv2/stops/${routeId}/${directionId}?format=JSON`)
@@ -57,8 +58,7 @@ class App extends Component {
         })
   }
 
-  handleStopsChange(event) {
-    const stopId = event.target.value
+  handleStopsChange(stopId) {
     const { routeId, directionId } = this.state
     fetch(`https://svc.metrotransit.org/nextripv2/${routeId}/${directionId}/${stopId}?format=JSON`)
       .then(response => response.json())
@@ -71,40 +71,33 @@ class App extends Component {
   render() {
     const { routes, routeId, directions, directionId, stops } = this.state
     return (
-      <ContainerStyle className='center-align grid-container'>
+      <ContainerStyle>
         <GlobalStyle />
-        <div className='grid-item'>Real-time Departures</div>
-        <div className='grid-item'>
-          <select onChange={this.handleRoutesChange}>
-            {routes && routes.map(({ Route, Description }) => 
-              <option key={Route} value={Route}>
-                {Description}
-              </option>
-            )}
-          </select>
+        <div className='content'>
+          <h2 style={styles}>Real-time Departures</h2>
+          <Dropdown 
+            list={routes}
+            value='Route'
+            description='Description'
+            callback={this.handleRoutesChange}
+          />
+          {routeId &&
+            <Dropdown 
+              list={directions}
+              value='direction_id'
+              description='direction_name'
+              callback={this.handleDirectionsChange}
+            />
+          }
+          {directionId &&
+            <Dropdown 
+              list={stops}
+              value='place_code'
+              description='description'
+              callback={this.handleStopsChange}
+            />
+          }
         </div>
-        {routeId &&
-          <div className='grid-item'>
-            <select onChange={this.handleDirectionsChange}>
-              {directions && directions.map(({ direction_id, direction_name }) => 
-                <option key={direction_id} value={direction_id}>
-                  {direction_name}
-                </option>
-              )}
-            </select>
-          </div>
-        }
-        {directionId &&
-          <div className='grid-item'>
-            <select onChange={this.handleStopsChange}>
-              {stops && stops.map(({ description, place_code }) => 
-                <option key={place_code} value={place_code}>
-                  {description}
-                </option>
-              )}
-            </select>
-          </div>
-        }
       </ContainerStyle>
     )
   }
