@@ -1,12 +1,14 @@
 import defaultAxios from 'axios'
 
+import { BASE_URL, ROUTES_URL } from './constant'
+
 const axios = defaultAxios.create({
-  baseURL: 'https://svc.metrotransit.org/'
+  baseURL: BASE_URL
 })
 
 export const fetchRoutes = async() => {
   try {
-    const routes = await axios.get('NexTrip/Routes?format=json')
+    const routes = await axios.get(ROUTES_URL)
     return routes.data
   } catch(error) {
     return console.error(error)

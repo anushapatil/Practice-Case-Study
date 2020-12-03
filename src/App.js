@@ -1,121 +1,84 @@
-import React, { Component } from 'react'
+import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
-import { connect } from 'recat-redux' 
+import { connect } from 'react-redux' 
 
 import ContainerStyle from './styles'
 import GlobalStyle from './theme/globalStyle'
 import { Dropdown } from './components'
-import types from './redux/actions'
+import {
+  GET_ROUTES_REQUESTED,
+  GET_DIRECTIONS_REQUESTED,
+  GET_STOPS_REQUESTED,
+  GET_DEPARTURES_REQUESTED
+} from './redux/actions'
 
 const styles = { textAlign: 'center', marginBottom: '1.5rem' }
 
-class App extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      routes: [],
-      routeId: undefined,
-      directions: [],
-      directionId: undefined,
-      stops: [],
-      departures: []
-    }
-    this.fetchRoutesList = this.fetchRoutesList.bind(this)
-    this.handleRoutesChange = this.handleRoutesChange.bind(this)
-    this.handleDirectionsChange = this.handleDirectionsChange.bind(this)
-    this.handleStopsChange = this.handleStopsChange.bind(this)
-  }
-
-  componentDidMount() {
-    // fetch Routes
-    this.fetchRoutesList()
-  }
-
-  fetchRoutesList() {
-    fetch('https://svc.metrotransit.org/NexTrip/Routes?format=json')
-      .then(response => response.json())
-        .then(data => {
-          console.log('routes', data)
-          this.setState({ routes: data })
-        })
-  }
-
-  handleRoutesChange(routeId) {
-    this.setState({ routeId })
-    fetch(`https://svc.metrotransit.org/nextripv2/directions/${routeId}?format=JSON`)
-      .then(response => response.json())
-        .then(data => {
-          console.log('directions', data)
-          this.setState({ directions: data })
-        })
-  }
-
-  handleDirectionsChange(directionId) {
-    const { routeId } = this.state
-    this.setState({ directionId })
-    fetch(`https://svc.metrotransit.org/nextripv2/stops/${routeId}/${directionId}?format=JSON`)
-      .then(response => response.json())
-        .then(data => {
-          console.log('stops', data)
-          this.setState({ stops: data })
-        })
-  }
-
-  handleStopsChange(stopId) {
-    const { routeId, directionId } = this.state
-    fetch(`https://svc.metrotransit.org/nextripv2/${routeId}/${directionId}/${stopId}?format=JSON`)
-      .then(response => response.json())
-        .then(data => {
-          console.log('departures', data)
-          this.setState({ departures: data })
-        })
-  }
-
-  render() {
-    const { routes, routeId, directions, directionId, stops } = this.state
-    return (
-      <ContainerStyle>
-        <GlobalStyle />
-        <div className='content'>
-          <h2 style={styles}>Real-time Departures</h2>
+const App = ({
+  routeId,
+  routes,
+  directionId,
+  directions,
+  stops,
+  departures,
+  getRoutes,
+  getDirections,
+  getStops,
+  getDepartures
+}) => {
+  useEffect(() => {
+    getRoutes()
+  }, [])
+  return (
+    <ContainerStyle>
+      <GlobalStyle />
+      <div className='content'>
+        <h2 style={styles}>Real-time Departures</h2>
+        <Dropdown 
+          list={routes}
+          value='Route'
+          description='Description'
+          callback={getDirections}
+        />
+        {routeId &&
           <Dropdown 
-            list={routes}
-            value='Route'
-            description='Description'
-            callback={this.handleRoutesChange}
+            list={directions}
+            value='direction_id'
+            description='direction_name'
+            callback={getStops}
           />
-          {routeId &&
-            <Dropdown 
-              list={directions}
-              value='direction_id'
-              description='direction_name'
-              callback={this.handleDirectionsChange}
-            />
-          }
-          {directionId &&
-            <Dropdown 
-              list={stops}
-              value='place_code'
-              description='description'
-              callback={this.handleStopsChange}
-            />
-          }
-        </div>
-      </ContainerStyle>
-    )
-  }
+        }
+        {directionId &&
+          <Dropdown 
+            list={stops}
+            value='place_code'
+            description='description'
+            callback={getDepartures}
+          />
+        }
+      </div>
+    </ContainerStyle>
+  )
 }
 
 App.propTypes = {
-
+  routes: PropTypes.array
 }
 
 const mapStateToProps = (state) => ({
-  routes: state.routes
+  routeId: state.transit.routeId,
+  routes: state.transit.routes,
+  directionId: state.transit.directionId,
+  directions: state.transit.directions,
+  stops: state.transit.stops,
+  departures: state.transit.departures,
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  getRoutes: () => dispatch({ type: types.GET_ROUTES_REQUESTED })
+  getRoutes: () => dispatch({ type: GET_ROUTES_REQUESTED }),
+  getDirections: (routeId) => dispatch({ type: GET_DIRECTIONS_REQUESTED, routeId }),
+  getStops: (directionId) => dispatch({ type: GET_STOPS_REQUESTED, directionId }),
+  getDepartures: (stopId) => dispatch({ type: GET_DEPARTURES_REQUESTED, stopId })
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(App)

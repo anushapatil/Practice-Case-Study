@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux'
 
-import reducer from './reducers'
+import transit from './reducers'
 
 export default combineReducers({
-  reducer
+  transit
 })
