@@ -1,8 +1,11 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
+import { connect } from 'recat-redux' 
 
 import ContainerStyle from './styles'
 import GlobalStyle from './theme/globalStyle'
 import { Dropdown } from './components'
+import types from './redux/actions'
 
 const styles = { textAlign: 'center', marginBottom: '1.5rem' }
 
@@ -103,4 +106,16 @@ class App extends Component {
   }
 }
 
-export default App
+App.propTypes = {
+
+}
+
+const mapStateToProps = (state) => ({
+  routes: state.routes
+})
+
+const mapDispatchToProps = (dispatch) => ({
+  getRoutes: () => dispatch({ type: types.GET_ROUTES_REQUESTED })
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(App)
