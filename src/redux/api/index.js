@@ -1,6 +1,6 @@
 import defaultAxios from 'axios'
 
-import { BASE_URL, ROUTES_URL } from './constant'
+import { BASE_URL, ROUTES_ENDPOINT, FORMAT_JSON, DIRECTION_ENDPOINT, STOPS_ENDPOINT, DEPARTURE_ENDPOINT } from './constant'
 
 const axios = defaultAxios.create({
   baseURL: BASE_URL
@@ -8,7 +8,7 @@ const axios = defaultAxios.create({
 
 export const fetchRoutes = async() => {
   try {
-    const routes = await axios.get(ROUTES_URL)
+    const routes = await axios.get(ROUTES_ENDPOINT + FORMAT_JSON)
     return routes.data
   } catch(error) {
     return console.error(error)
@@ -17,7 +17,7 @@ export const fetchRoutes = async() => {
 
 export const fetchDirections = async(routeId) => {
   try {
-    const directions = await axios.get(`nextripv2/directions/${routeId}?format=JSON`)
+    const directions = await axios.get(DIRECTION_ENDPOINT + routeId + FORMAT_JSON)
     return directions.data
   } catch(error) {
     return console.error(error)
@@ -26,7 +26,7 @@ export const fetchDirections = async(routeId) => {
 
 export const fetchStops = async(routeId, directionId) => {
   try {
-    const stops = await axios.get(`nextripv2/stops/${routeId}/${directionId}?format=JSON`)
+    const stops = await axios.get(STOPS_ENDPOINT + routeId + '/' + directionId + FORMAT_JSON)
     return stops.data
   } catch(error) {
     return console.error(error)
@@ -35,7 +35,7 @@ export const fetchStops = async(routeId, directionId) => {
 
 export const fetchDepartures = async(routeId, directionId, stopId) => {
   try {
-    const departures = await axios.get(`nextripv2/${routeId}/${directionId}/${stopId}?format=JSON`)
+    const departures = await axios.get(DEPARTURE_ENDPOINT + routeId + '/' + directionId + '/' + stopId + FORMAT_JSON)
     return departures.data
   } catch(error) {
     return console.error(error)

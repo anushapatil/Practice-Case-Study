@@ -1,2 +1,6 @@
 export const BASE_URL = 'https://svc.metrotransit.org/'
-export const ROUTES_URL = 'NexTrip/Routes?format=json'
+export const ROUTES_ENDPOINT = 'NexTrip/Routes'
+export const FORMAT_JSON = '?format=JSON'
+export const DIRECTION_ENDPOINT = 'nextripv2/directions/'
+export const STOPS_ENDPOINT = 'nextripv2/stops/'
+export const DEPARTURE_ENDPOINT = 'nextripv2/'

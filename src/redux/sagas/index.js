@@ -11,7 +11,13 @@ import {
   GET_STOPS,
   SET_STOP_ID,
   GET_DEPARTURES_REQUESTED,
-  GET_DEPARTURES
+  GET_DEPARTURES,
+  SHOW_DIRECTION_DROP_DOWN,
+  SHOW_STOPS_DROPDOWN,
+  SHOW_DEPARTURES_TABLE,
+  RESET_ROUTE_DATA,
+  RESET_DIRECTION_DATA,
+  RESET_STOP_DATA
 } from '../actions'
 import {
   fetchRoutes,
@@ -23,6 +29,11 @@ import {
   getRouteId,
   getDirectionId
 } from '../selectors'
+import {
+  DEFAULT_ROUTE,
+  DEFAULT_DIRECTION,
+  DEFAULT_STOP
+} from '../constant'
 
 function* getRoutes() {
   const routes = yield call(fetchRoutes)
@@ -33,6 +44,11 @@ function* getRoutes() {
 }
 
 function* getDirections({ routeId }) {
+  if (routeId === DEFAULT_ROUTE) {
+    yield put({ type: RESET_ROUTE_DATA })
+    return
+  }
+  yield put({ type: SHOW_DIRECTION_DROP_DOWN })
   yield put({ type: SET_ROUTE_ID, payload: routeId })
   const directions = yield call(fetchDirections, routeId)
   yield put({ 
@@ -42,6 +58,11 @@ function* getDirections({ routeId }) {
 }
 
 function* getStops({ directionId }) {
+  if (directionId === DEFAULT_DIRECTION) {
+    yield put({ type: RESET_DIRECTION_DATA })
+    return
+  }
+  yield put({ type: SHOW_STOPS_DROPDOWN })
   yield put({ type: SET_DIRECTION_ID, payload: directionId })
   const routeId = yield select(getRouteId)
   const stops = yield call(fetchStops, routeId, directionId)
@@ -52,6 +73,11 @@ function* getStops({ directionId }) {
 }
 
 function* getDepartures({ stopId }) {
+  if (stopId === DEFAULT_STOP) {
+    yield put({ type: RESET_STOP_DATA })
+    return
+  }
+  yield put({ type: SHOW_DEPARTURES_TABLE })
   const routeId = yield select(getRouteId)
   const directionId = yield select(getDirectionId)
 

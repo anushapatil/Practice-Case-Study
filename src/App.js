@@ -17,8 +17,11 @@ const styles = { textAlign: 'center', marginBottom: '1.5rem' }
 const App = ({
   routeId,
   routes,
+  showDirection,
   directionId,
   directions,
+  showStop,
+  stopId,
   stops,
   departures,
   getRoutes,
@@ -34,26 +37,30 @@ const App = ({
       <GlobalStyle />
       <div className='content'>
         <h2 style={styles}>Real-time Departures</h2>
+        {/* <label for="route-select">Choose a route:</label>  accessibility*/} 
         <Dropdown 
           list={routes}
           value='Route'
           description='Description'
           callback={getDirections}
+          defaultId={routeId}
         />
-        {routeId &&
+        { showDirection &&
           <Dropdown 
             list={directions}
             value='direction_id'
             description='direction_name'
             callback={getStops}
+            defaultId={directionId}
           />
         }
-        {directionId &&
+        { showStop &&
           <Dropdown 
             list={stops}
             value='place_code'
             description='description'
             callback={getDepartures}
+            defaultId={stopId}
           />
         }
       </div>
@@ -62,14 +69,25 @@ const App = ({
 }
 
 App.propTypes = {
-  routes: PropTypes.array
+  showDirection: PropTypes.bool,
+  routes: PropTypes.array,
+  showStop: PropTypes.bool,
+  directions: PropTypes.array,
+  stops: PropTypes.array,
+  getRoutes: PropTypes.func,
+  getDirections: PropTypes.func,
+  getStops: PropTypes.func,
+  getDepartures: PropTypes.func
 }
 
 const mapStateToProps = (state) => ({
   routeId: state.transit.routeId,
   routes: state.transit.routes,
+  showDirection: state.transit.showDirection,
   directionId: state.transit.directionId,
   directions: state.transit.directions,
+  showStop: state.transit.showStop,
+  stopId: state.transit.stopId,
   stops: state.transit.stops,
   departures: state.transit.departures,
 })
