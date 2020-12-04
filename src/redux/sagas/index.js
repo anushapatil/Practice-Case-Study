@@ -48,13 +48,13 @@ function* getDirections({ routeId }) {
     yield put({ type: RESET_ROUTE_DATA })
     return
   }
-  yield put({ type: SHOW_DIRECTION_DROP_DOWN })
   yield put({ type: SET_ROUTE_ID, payload: routeId })
   const directions = yield call(fetchDirections, routeId)
   yield put({ 
     type: GET_DIRECTIONS,
     payload: directions
   })
+  yield put({ type: SHOW_DIRECTION_DROP_DOWN })
 }
 
 function* getStops({ directionId }) {
@@ -62,7 +62,6 @@ function* getStops({ directionId }) {
     yield put({ type: RESET_DIRECTION_DATA })
     return
   }
-  yield put({ type: SHOW_STOPS_DROPDOWN })
   yield put({ type: SET_DIRECTION_ID, payload: directionId })
   const routeId = yield select(getRouteId)
   const stops = yield call(fetchStops, routeId, directionId)
@@ -70,6 +69,7 @@ function* getStops({ directionId }) {
     type: GET_STOPS,
     payload: stops
   })
+  yield put({ type: SHOW_STOPS_DROPDOWN })
 }
 
 function* getDepartures({ stopId }) {
@@ -77,7 +77,6 @@ function* getDepartures({ stopId }) {
     yield put({ type: RESET_STOP_DATA })
     return
   }
-  yield put({ type: SHOW_DEPARTURES_TABLE })
   const routeId = yield select(getRouteId)
   const directionId = yield select(getDirectionId)
 
@@ -87,6 +86,7 @@ function* getDepartures({ stopId }) {
     type: GET_DEPARTURES,
     payload: departures
   })
+  yield put({ type: SHOW_DEPARTURES_TABLE })
 }
 
 export default function* rootSaga() {

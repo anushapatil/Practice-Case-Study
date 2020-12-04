@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 
 import ContainerStyle from './styles'
 import GlobalStyle from './theme/globalStyle'
-import { Dropdown } from './components'
+import { Dropdown, Table } from './components'
 import {
   GET_ROUTES_REQUESTED,
   GET_DIRECTIONS_REQUESTED,
@@ -23,7 +23,7 @@ const App = ({
   showStop,
   stopId,
   stops,
-  departures,
+  showDeparture,
   getRoutes,
   getDirections,
   getStops,
@@ -63,6 +63,7 @@ const App = ({
             defaultId={stopId}
           />
         }
+        { showDeparture && <Table />}
       </div>
     </ContainerStyle>
   )
@@ -74,6 +75,7 @@ App.propTypes = {
   showStop: PropTypes.bool,
   directions: PropTypes.array,
   stops: PropTypes.array,
+  showDeparture: PropTypes.bool,
   getRoutes: PropTypes.func,
   getDirections: PropTypes.func,
   getStops: PropTypes.func,
@@ -89,7 +91,7 @@ const mapStateToProps = (state) => ({
   showStop: state.transit.showStop,
   stopId: state.transit.stopId,
   stops: state.transit.stops,
-  departures: state.transit.departures,
+  showDeparture: state.transit.showDeparture
 })
 
 const mapDispatchToProps = (dispatch) => ({

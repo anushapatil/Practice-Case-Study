@@ -13,7 +13,8 @@ import {
   RESET_DIRECTION_DATA,
   RESET_STOP_DATA,
   GET_DIRECTIONS_REQUESTED,
-  GET_STOPS_REQUESTED
+  GET_STOPS_REQUESTED,
+  GET_DEPARTURES_REQUESTED
 } from '../actions'
 
 import {
@@ -71,18 +72,83 @@ const defaultStop = {
 
 export default(state = initialState, { type, payload }) => {
   switch(type) {
-    case GET_DIRECTIONS_REQUESTED:
+    case GET_ROUTES:
+      return {
+        ...state,
+        routes: [
+          defaultRoute,
+          ...payload
+        ]
+      }
+    case GET_DIRECTIONS_REQUESTED: // directions data
       return {
         ...state,
         directionId: DEFAULT_DIRECTION,
         ...directionInitialState
       }
-    case GET_STOPS_REQUESTED:
+    case SET_ROUTE_ID:
+      return {
+        ...state,
+        routeId: payload
+      }
+    case GET_DIRECTIONS:
+      return {
+        ...state,
+        directions: [
+          defaultDirection,
+          ...payload,
+        ]
+      }
+    case SHOW_DIRECTION_DROP_DOWN:
+      return {
+        ...state,
+        showDirection: true
+      }
+    case GET_STOPS_REQUESTED: // stops data
       return {
         ...state,
         stopId: DEFAULT_STOP
+      }    
+    case SET_DIRECTION_ID:
+      return {
+        ...state,
+        directionId: payload
       }
-    case RESET_ROUTE_DATA:
+    case GET_STOPS:
+      return {
+        ...state,
+        stops: [
+          defaultStop,
+          ...payload
+        ]
+      }
+    case SHOW_STOPS_DROPDOWN:
+      return {
+        ...state,
+        showStop: true
+      }
+    case GET_DEPARTURES_REQUESTED: // departure data
+      return {
+        ...state
+      }
+    case SET_STOP_ID:
+      return {
+        ...state,
+        stopId: payload
+      }
+    case GET_DEPARTURES:
+      return {
+        ...state,
+        departures: payload.departures,
+        departsDescription: payload.stops[0].description,
+        departsStopId: payload.stops[0].stop_id
+      }
+    case SHOW_DEPARTURES_TABLE:
+      return {
+        ...state,
+        showDeparture: true
+      }
+    case RESET_ROUTE_DATA: // all reset data start
       return {
         ...state,
         ...routeInitialState
@@ -96,65 +162,6 @@ export default(state = initialState, { type, payload }) => {
       return {
         ...state,
         ...stopIntialState
-      }
-    case GET_ROUTES:
-      return {
-        ...state,
-        routes: [
-          defaultRoute,
-          ...payload
-        ]
-      }
-    case SET_ROUTE_ID:
-      return {
-        ...state,
-        routeId: payload
-      }
-    case SHOW_DIRECTION_DROP_DOWN:
-      return {
-        ...state,
-        showDirection: true
-      }
-    case GET_DIRECTIONS:
-      return {
-        ...state,
-        directions: [
-          defaultDirection,
-          ...payload,
-        ]
-      }
-    case SET_DIRECTION_ID:
-      return {
-        ...state,
-        directionId: payload
-      }
-    case SHOW_STOPS_DROPDOWN:
-      return {
-        ...state,
-        showStop: true
-      }
-    case GET_STOPS:
-      return {
-        ...state,
-        stops: [
-          defaultStop,
-          ...payload
-        ]
-      }
-    case SET_STOP_ID:
-      return {
-        ...state,
-        stopId: payload
-      }
-    case SHOW_DEPARTURES_TABLE:
-      return {
-        ...state,
-        showDeparture: true
-      }
-    case GET_DEPARTURES:
-      return {
-        ...state,
-        departures: payload
       }
     default:
       return state
