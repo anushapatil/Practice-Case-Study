@@ -1,6 +1,13 @@
 import defaultAxios from 'axios'
 
-import { BASE_URL, ROUTES_ENDPOINT, FORMAT_JSON, DIRECTION_ENDPOINT, STOPS_ENDPOINT, DEPARTURE_ENDPOINT } from './constant'
+import {
+  BASE_URL,
+  ROUTES_ENDPOINT,
+  FORMAT_JSON,
+  DIRECTION_ENDPOINT,
+  STOPS_ENDPOINT,
+  DEPARTURE_ENDPOINT
+} from './constant'
 
 const axios = defaultAxios.create({
   baseURL: BASE_URL
@@ -26,7 +33,7 @@ export const fetchDirections = async(routeId) => {
 
 export const fetchStops = async(routeId, directionId) => {
   try {
-    const stops = await axios.get(STOPS_ENDPOINT + routeId + '/' + directionId + FORMAT_JSON)
+    const stops = await axios.get(`${STOPS_ENDPOINT}${routeId}/${directionId}${FORMAT_JSON}`)
     return stops.data
   } catch(error) {
     return console.error(error)
@@ -35,7 +42,7 @@ export const fetchStops = async(routeId, directionId) => {
 
 export const fetchDepartures = async(routeId, directionId, stopId) => {
   try {
-    const departures = await axios.get(DEPARTURE_ENDPOINT + routeId + '/' + directionId + '/' + stopId + FORMAT_JSON)
+    const departures = await axios.get(`${DEPARTURE_ENDPOINT}${routeId}/${directionId}/${stopId}${FORMAT_JSON}`)
     return departures.data
   } catch(error) {
     return console.error(error)

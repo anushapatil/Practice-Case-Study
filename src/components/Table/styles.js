@@ -3,7 +3,6 @@ import styled from 'styled-components'
 const TableStyle = styled.div`
   .Table {
     display: table;
-    width: 100%;
     color: #626462;
     font-size: 1.125rem !important;
   }

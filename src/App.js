@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux' 
 
-import ContainerStyle from './styles'
+// import ContainerStyle from './styles'
 import GlobalStyle from './theme/globalStyle'
 import { Dropdown, Table } from './components'
 import {
@@ -33,10 +33,8 @@ const App = ({
     getRoutes()
   }, [])
   return (
-    <ContainerStyle>
-      <GlobalStyle />
-      <div className='content'>
-        <h2 style={styles}>Real-time Departures</h2>
+    <section className='container'>
+        <h2 className='text-center'>Real-time Departures</h2>
         {/* <label for="route-select">Choose a route:</label>  accessibility*/} 
         <Dropdown 
           list={routes}
@@ -64,8 +62,7 @@ const App = ({
           />
         }
         { showDeparture && <Table />}
-      </div>
-    </ContainerStyle>
+    </section>
   )
 }
 

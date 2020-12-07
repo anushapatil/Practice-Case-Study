@@ -1,8 +1,6 @@
 import React from 'react'
 
-const styles = { textAlign: 'center', marginBottom: '1.5rem' }
-const dropdronStyle = { width: '570px', height: '60px', color: '#8a8b8a', fontSize: '1.4375rem !important' }
-const optionsStyle = { fontWeight: 'normal', whiteSpace: 'pre', minHeight: '1.2em', padding: '0px 2px 1px' }
+import Select from './styles'
 
 const Dropdown = ({ list = [], callback, value, description, defaultId }) => {
   const dropdownSelected = (event) => {
@@ -10,14 +8,14 @@ const Dropdown = ({ list = [], callback, value, description, defaultId }) => {
     callback(value)
   }
   return (
-    <div style={{ ...styles }}>
-      <select style={dropdronStyle} onChange={dropdownSelected}>
+    <div className='row'>
+      <Select onChange={dropdownSelected}>
         {list && list.map(item => 
-          <option style={optionsStyle} key={item[value]} value={item[value]} selected={defaultId === item[value]}>
+          <option key={item[value]} value={item[value]} sele={defaultId === item[value]}>
             {item[description]}
           </option>
         )}
-      </select>
+      </Select>
     </div>
   )
 }
