@@ -56,8 +56,8 @@ const initialState = {
 }
 
 const defaultRoute = {
-  Description: SELECT_ROUTE,
-  Route: DEFAULT_ROUTE
+  route_label: SELECT_ROUTE,
+  route_id: DEFAULT_ROUTE
 }
 
 const defaultDirection = {

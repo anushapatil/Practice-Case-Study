@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 
 import Cell from './Cell'
 import { NO_DEPARTURE } from './constant'
@@ -6,20 +6,21 @@ import { NO_DEPARTURE } from './constant'
 const Row = ({ list }) => {
   if (list.length === 0) return <Cell data={NO_DEPARTURE} />
   return (
-    <div>
-      {list && list.map(({
-        route_short_name = '',
-        terminal = '',
-        description = '',
-        departure_text = ''
-      }, index) =>
-        <div key={index} class="Row">
-          <Cell data={route_short_name + terminal} />
-          <Cell data={description} />
-          <Cell data={departure_text} />
+    <Fragment>
+      {list && list.map(({ route_short_name = '', terminal = '', description = '', departure_text = '' }, index) =>
+        <div key={index} className='row custom-row'>
+          <div className='col-lg-2 first-col'>
+            {route_short_name + terminal}
+          </div>
+          <div className='col-lg-7 second-col'>
+            {description}
+          </div>
+          <div className='col-lg-3 last-col'>
+            {departure_text}
+          </div>
         </div>
       )}
-    </div>
+    </Fragment>
   )
 }
 

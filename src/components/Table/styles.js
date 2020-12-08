@@ -1,51 +1,56 @@
 import styled from 'styled-components'
 
+const padding = '15px !important'
+const zeroPixel = '0px !important'
+
 const TableStyle = styled.div`
-  .Table {
-    display: table;
-    color: #626462;
-    font-size: 1.125rem !important;
+  background-color: #f5f5f4 !important;
+  padding-right: ${zeroPixel};
+  padding-left: ${zeroPixel};
+  padding-bottom: ${padding};
+  color: #626462;
+  .title {
+    h3 {
+      padding: ${padding};
+    }
+    span {
+      padding: ${padding};
+      margin-left: auto;
+      text-align: right;
+    }
   }
-  .Title {
-    display: table-caption;
-    text-align: center;
-    font-weight: bold;
-    font-size: larger;
+  .custom-row {
+    margin-right: ${zeroPixel};
+    margin-left: ${zeroPixel};
+    border-bottom: 1px solid #626462;
   }
-  .Heading {
-    display: table-row;
-    font-weight: bold;
-    padding-top: 12px;
-    padding-bottom: 12px;
+  .header {
+    margin-right: ${zeroPixel};
+    margin-left: ${zeroPixel};
+    background-color: #ffd200;
+    div {
+      font-weight: 700;
+      padding: ${padding};
+      text-align: left;
+    }
+  }
+  .text-align-right {
+    text-align: right !important;
+  }
+  .first-col {
+    font-weight: 700;
+    padding: ${padding};
     text-align: left;
   }
-  .HeaderCell {
-    background-color: #ffd200;
-    display: table-cell;
-    padding: 8px;
+  .last-col {
+    font-weight: 700;
+    padding: ${padding};
+    text-align: right;
   }
-  .Row {
-    display: table-row;
-  }
-  .Cell {
-    display: table-cell;
-    padding: 0.75rem;
-    padding-left: 1.5rem !important;
-    border-top: none;
-    border-bottom: none;
-    letter-spacing: 1.28px;
-  }
-  .Cell:nth-child(even) {
-    background-color: #f5f5f4;
-  }
-  .RouteCell {
-
-  }
-  .DestinationCell {
-
-  }
-  .DepartsCell {
-
+  .second-col {
+    padding: ${padding};
+    text-align: left;
+    font-weight: 400;
   }
 `
 export default TableStyle

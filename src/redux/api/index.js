@@ -3,7 +3,6 @@ import defaultAxios from 'axios'
 import {
   BASE_URL,
   ROUTES_ENDPOINT,
-  FORMAT_JSON,
   DIRECTION_ENDPOINT,
   STOPS_ENDPOINT,
   DEPARTURE_ENDPOINT
@@ -15,7 +14,7 @@ const axios = defaultAxios.create({
 
 export const fetchRoutes = async() => {
   try {
-    const routes = await axios.get(ROUTES_ENDPOINT + FORMAT_JSON)
+    const routes = await axios.get(ROUTES_ENDPOINT)
     return routes.data
   } catch(error) {
     return console.error(error)
@@ -24,7 +23,7 @@ export const fetchRoutes = async() => {
 
 export const fetchDirections = async(routeId) => {
   try {
-    const directions = await axios.get(DIRECTION_ENDPOINT + routeId + FORMAT_JSON)
+    const directions = await axios.get(DIRECTION_ENDPOINT + routeId)
     return directions.data
   } catch(error) {
     return console.error(error)
@@ -33,7 +32,7 @@ export const fetchDirections = async(routeId) => {
 
 export const fetchStops = async(routeId, directionId) => {
   try {
-    const stops = await axios.get(`${STOPS_ENDPOINT}${routeId}/${directionId}${FORMAT_JSON}`)
+    const stops = await axios.get(`${STOPS_ENDPOINT}${routeId}/${directionId}`)
     return stops.data
   } catch(error) {
     return console.error(error)
@@ -42,7 +41,7 @@ export const fetchStops = async(routeId, directionId) => {
 
 export const fetchDepartures = async(routeId, directionId, stopId) => {
   try {
-    const departures = await axios.get(`${DEPARTURE_ENDPOINT}${routeId}/${directionId}/${stopId}${FORMAT_JSON}`)
+    const departures = await axios.get(`${DEPARTURE_ENDPOINT}${routeId}/${directionId}/${stopId}`)
     return departures.data
   } catch(error) {
     return console.error(error)

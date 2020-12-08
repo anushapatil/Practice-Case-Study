@@ -2,8 +2,6 @@ import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux' 
 
-// import ContainerStyle from './styles'
-import GlobalStyle from './theme/globalStyle'
 import { Dropdown, Table } from './components'
 import {
   GET_ROUTES_REQUESTED,
@@ -11,8 +9,7 @@ import {
   GET_STOPS_REQUESTED,
   GET_DEPARTURES_REQUESTED
 } from './redux/actions'
-
-const styles = { textAlign: 'center', marginBottom: '1.5rem' }
+import GlobalStyle from './theme/globalStyle'
 
 const App = ({
   routeId,
@@ -34,34 +31,34 @@ const App = ({
   }, [])
   return (
     <section className='container'>
-        <h2 className='text-center'>Real-time Departures</h2>
-        {/* <label for="route-select">Choose a route:</label>  accessibility*/} 
+      <GlobalStyle />
+      <h2 className='text-center'>Real-time Departures</h2>
+      <Dropdown 
+        list={routes}
+        value='route_id'
+        description='route_label'
+        callback={getDirections}
+        defaultId={routeId}
+      />
+      { showDirection &&
         <Dropdown 
-          list={routes}
-          value='Route'
-          description='Description'
-          callback={getDirections}
-          defaultId={routeId}
+          list={directions}
+          value='direction_id'
+          description='direction_name'
+          callback={getStops}
+          defaultId={directionId}
         />
-        { showDirection &&
-          <Dropdown 
-            list={directions}
-            value='direction_id'
-            description='direction_name'
-            callback={getStops}
-            defaultId={directionId}
-          />
-        }
-        { showStop &&
-          <Dropdown 
-            list={stops}
-            value='place_code'
-            description='description'
-            callback={getDepartures}
-            defaultId={stopId}
-          />
-        }
-        { showDeparture && <Table />}
+      }
+      { showStop &&
+        <Dropdown 
+          list={stops}
+          value='place_code'
+          description='description'
+          callback={getDepartures}
+          defaultId={stopId}
+        />
+      }
+      { showDeparture && <Table />}
     </section>
   )
 }

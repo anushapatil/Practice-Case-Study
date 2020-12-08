@@ -1,15 +1,19 @@
 import React from 'react'
 
-const headers = [ 'ROUTE', 'DESTINATION', 'DEPARTS']
+import { ROUTE, DESTINATION, DEPARTS } from './Constant'
 
 const Header = () => {
   return (
-    <div class="Heading">
-      {headers.map((data, index) =>
-        <div class="HeaderCell" key={index}>
-          <p>{data}</p>
-        </div>
-      )}
+    <div className='row header'>
+      <div className='col-lg-2'>
+        {ROUTE}
+      </div>
+      <div className='col-lg-7'>
+        {DESTINATION}
+      </div>
+      <div className='col-lg-3 text-align-right'>
+        {DEPARTS}
+      </div>
     </div>
   )
 }
