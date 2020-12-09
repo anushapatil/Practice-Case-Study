@@ -12,7 +12,7 @@ const Table = ({
   departsStopId
 }) => {
   return (
-    <TableStyle>
+    <TableStyle className='container'>
       <div className='title d-flex'>
         <h3>{departsDescription}</h3>
         <span>

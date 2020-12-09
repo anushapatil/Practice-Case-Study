@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux' 
+import { useHistory } from 'react-router'
 
 import { Dropdown, Table } from './components'
 import {
@@ -24,13 +25,30 @@ const App = ({
   getRoutes,
   getDirections,
   getStops,
-  getDepartures
+  getDepartures,
+  urlRouteId,
+  urlDirectionId,
+  urlStopId,
 }) => {
+  const history = useHistory()
   useEffect(() => {
     getRoutes()
   }, [])
+  useEffect(() => {
+    if ((urlRouteId && urlDirectionId && urlStopId ) && (urlRouteId != routeId || urlDirectionId != directionId || urlStopId != stopId)) {
+      // get departure table
+      getDepartures(urlRouteId, urlDirectionId, urlStopId)
+    }
+  }, [urlRouteId, urlDirectionId, urlStopId])
+
+  const handleGetDepartures = (stopId) => {
+    // push id to the url path
+    history.push(`/${routeId}/${directionId}/${stopId}`)
+    // dispatch action to get directions
+    getDepartures(routeId, directionId, stopId)
+  }
   return (
-    <section className='container'>
+    <div className='container'>
       <GlobalStyle />
       <h2 className='text-center'>Real-time Departures</h2>
       <Dropdown 
@@ -54,12 +72,14 @@ const App = ({
           list={stops}
           value='place_code'
           description='description'
-          callback={getDepartures}
+          callback={handleGetDepartures}
           defaultId={stopId}
         />
       }
-      { showDeparture && <Table />}
-    </section>
+      { showDeparture &&
+        <Table />
+      }
+    </div>
   )
 }
 
@@ -92,7 +112,7 @@ const mapDispatchToProps = (dispatch) => ({
   getRoutes: () => dispatch({ type: GET_ROUTES_REQUESTED }),
   getDirections: (routeId) => dispatch({ type: GET_DIRECTIONS_REQUESTED, routeId }),
   getStops: (directionId) => dispatch({ type: GET_STOPS_REQUESTED, directionId }),
-  getDepartures: (stopId) => dispatch({ type: GET_DEPARTURES_REQUESTED, stopId })
+  getDepartures: (routeId, directionId, stopId) => dispatch({ type: GET_DEPARTURES_REQUESTED, routeId, directionId, stopId })
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(App)

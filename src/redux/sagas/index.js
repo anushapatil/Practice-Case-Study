@@ -72,16 +72,16 @@ function* getStops({ directionId }) {
   yield put({ type: SHOW_STOPS_DROPDOWN })
 }
 
-function* getDepartures({ stopId }) {
+function* getDepartures({ routeId, directionId, stopId }) {
   if (stopId === DEFAULT_STOP) {
     yield put({ type: RESET_STOP_DATA })
     return
   }
-  const routeId = yield select(getRouteId)
-  const directionId = yield select(getDirectionId)
+  const route_id = routeId ? routeId : yield select(getRouteId)
+  const direction_id = directionId ? directionId : yield select(getDirectionId)
 
   yield put({ type: SET_STOP_ID, payload: stopId })
-  const departures = yield call(fetchDepartures, routeId, directionId, stopId)
+  const departures = yield call(fetchDepartures, route_id, direction_id, stopId)
   yield put({ 
     type: GET_DEPARTURES,
     payload: departures
