@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { ROUTE, DESTINATION, DEPARTS } from './Constant'
+import { ROUTE, DESTINATION, DEPARTS } from './constant'
 
 const Header = () => {
   return (

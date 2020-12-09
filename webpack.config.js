@@ -1,54 +1,55 @@
-const HtmlWebPackPlugin = require("html-webpack-plugin");
+const path = require('path')
+const HtmlWebPackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  "mode": "development",
-  "entry": "./src/index.js",
-  "output": {
-    "path": __dirname + '/dir',
-    "filename": "bundle.js"
+  mode: 'development',
+  entry: './src/index.js',
+  output: {
+    path: __dirname + '/dir',
+    filename: 'transit.js'
   },
-  "devtool": "source-map",
-  "module": {
-    "rules": [
+  devtool: 'source-map',
+  module: {
+    rules: [
       {
-        "enforce": "pre",
-        "test": /\.js$/,
-        "exclude": /node_modules/,
-        "loader": "eslint-loader",
-        "options": {
-          "emitWarning": true,
-          "failOnError": false,
-          "failOnWarning": false
+        enforce: 'pre',
+        test: /\.js$/,
+        exclude: /node_modules/,
+        loader: 'eslint-loader',
+        options: {
+          emitWarning: true,
+          failOnError: false,
+          failOnWarning: false
         }
       },
       {
-        "test": /\.(js|jsx)$/,
-        "exclude": /node_modules/,
-        "use": {
-          "loader": "babel-loader"
+        test: /\.(js|jsx)$/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader'
         }
       },
       {
-        "test": /\.css$/,
-        "use": [
-          "style-loader",
-          "css-loader"
+        test: /\.css$/,
+        use: [
+          style-loader,
+          css-loader
         ]
       },
       {
-        "test": /\.html$/,
-        "use": [
+        test: /\.html$/,
+        use: [
           {
-            "loader": "html-loader"
+            loader: 'html-loader'
           }
         ]
       }
     ]
   },
-  "plugins": [
+  plugins: [
     new HtmlWebPackPlugin({
-      template: "./src/index.html",
-      filename: "./index.html"
+      template: './src/index.html',
+      filename: './index.html'
     })
   ]
 }
