@@ -50,7 +50,7 @@ const App = ({
   return (
     <div className='container'>
       <GlobalStyle />
-      <h2 className='text-center'>Real-time Departures</h2>
+      <h2 className='text-center title'>Real-time Departures</h2>
       <Dropdown 
         list={routes}
         value='route_id'

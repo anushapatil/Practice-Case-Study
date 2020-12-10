@@ -12,13 +12,14 @@ const Table = ({
   departsStopId
 }) => {
   return (
-    <TableStyle className='container'>
-      <div className='title d-flex'>
-        <h3>{departsDescription}</h3>
+    <TableStyle className='pl-0 pr-0 pb-3 bg-light bg-secondary'>
+      <div className='title d-flex p-3'>
+        <h4>{departsDescription}</h4>
         <span>
           <strong>
-            Stop #: {departsStopId}
+            Stop #:
           </strong>
+          {departsStopId}
         </span>
       </div>
       <Header />

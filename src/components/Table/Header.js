@@ -4,14 +4,14 @@ import { ROUTE, DESTINATION, DEPARTS } from './constant'
 
 const Header = () => {
   return (
-    <div className='row header'>
-      <div className='col-lg-2'>
+    <div className='row ml-0 mr-0 bg-warning'>
+      <div className='col-3 p-3 text-left font-weight-bold'>
         {ROUTE}
       </div>
-      <div className='col-lg-7'>
+      <div className='col-5 p-3 text-left font-weight-bold'>
         {DESTINATION}
       </div>
-      <div className='col-lg-3 text-align-right'>
+      <div className='col-4 p-3 text-right font-weight-bold'>
         {DEPARTS}
       </div>
     </div>

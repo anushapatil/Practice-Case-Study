@@ -6,10 +6,9 @@
   "homepage": "http://anushapatil.github.io/Practice-Case-Study",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "npx webpack-dev-server --mode development --watch --hot",
     "build": "webpack --config=webpack.config.prod.js",
     "build-dev": "webpack --config=webpack.config.dev.js",
-    "starat": "webpack-dev-server --config=webpack.config.dev.js --open",
+    "start": "webpack-dev-server --config=webpack.config.dev.js --open",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build"
   },

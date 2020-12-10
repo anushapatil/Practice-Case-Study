@@ -8,8 +8,8 @@ const Dropdown = ({ list = [], callback, value, description, defaultId }) => {
     callback(value)
   }
   return (
-    <div className='d-flex justify-content-center'>
-      <Select onChange={dropdownSelected}>
+    <div className='justify-content-center row mb-3'>
+      <Select className='col-8 border border-secondary' onChange={dropdownSelected}>
         {list && list.map(item => 
           <option key={item[value]} value={item[value]} selected={defaultId === item[value]}>
             {item[description]}

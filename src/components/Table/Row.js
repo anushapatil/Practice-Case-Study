@@ -7,14 +7,14 @@ const Row = ({ list }) => {
   return (
     <Fragment>
       {list && list.map(({ route_short_name = '', terminal = '', description = '', departure_text = '' }, index) =>
-        <div key={index} className='row custom-row'>
-          <div className='col-lg-2 first-col'>
+        <div key={index} className='row border-bottom ml-0 mr-0'>
+          <div className='col-3 first-col p-3 text-left font-weight-bold'>
             {route_short_name + terminal}
           </div>
-          <div className='col-lg-7 second-col'>
+          <div className='col-5 second-col p-3 text-left'>
             {description}
           </div>
-          <div className='col-lg-3 last-col'>
+          <div className='col-4 last-col p-3 text-right font-weight-bold'>
             {departure_text}
           </div>
         </div>
