@@ -28,14 +28,14 @@ const App = ({
   getDepartures,
   urlRouteId,
   urlDirectionId,
-  urlStopId,
+  urlStopId
 }) => {
   const history = useHistory()
   useEffect(() => {
     getRoutes()
   }, [])
   useEffect(() => {
-    if ((urlRouteId && urlDirectionId && urlStopId ) && (urlRouteId != routeId || urlDirectionId != directionId || urlStopId != stopId)) {
+    if ((urlRouteId && urlDirectionId && urlStopId) && (urlRouteId != routeId || urlDirectionId != directionId || urlStopId != stopId)) {
       // get departure table
       getDepartures(urlRouteId, urlDirectionId, urlStopId)
     }
@@ -74,6 +74,7 @@ const App = ({
           description='description'
           callback={handleGetDepartures}
           defaultId={stopId}
+          data-testid='stops_dropdown'
         />
       }
       { showDeparture &&

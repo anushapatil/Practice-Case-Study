@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Snapshot Dropdwons 1`] = `
+<div
+  className="justify-content-center row mb-3"
+>
+  <select
+    className="sc-AykKC iTPQsP col-8 border border-secondary"
+    onChange={[Function]}
+  >
+    <option
+      data-testid="select-option"
+      selected={false}
+      value="000"
+    >
+      Select route
+    </option>
+    <option
+      data-testid="select-option"
+      selected={false}
+      value="901"
+    >
+      METRO Blue Line
+    </option>
+  </select>
+</div>
+`;

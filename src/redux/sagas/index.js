@@ -43,7 +43,7 @@ function* getRoutes() {
   })
 }
 
-function* getDirections({ routeId }) {
+export function* getDirections({ routeId }) {
   if (routeId === DEFAULT_ROUTE) {
     yield put({ type: RESET_ROUTE_DATA })
     return
@@ -57,7 +57,7 @@ function* getDirections({ routeId }) {
   yield put({ type: SHOW_DIRECTION_DROP_DOWN })
 }
 
-function* getStops({ directionId }) {
+export function* getStops({ directionId }) {
   if (directionId === DEFAULT_DIRECTION) {
     yield put({ type: RESET_DIRECTION_DATA })
     return
@@ -72,7 +72,7 @@ function* getStops({ directionId }) {
   yield put({ type: SHOW_STOPS_DROPDOWN })
 }
 
-function* getDepartures({ routeId, directionId, stopId }) {
+export function* getDepartures({ routeId, directionId, stopId }) {
   if (stopId === DEFAULT_STOP) {
     yield put({ type: RESET_STOP_DATA })
     return
